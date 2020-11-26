@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            <ul class="list-group" id="item_list">
+
+            </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" id="item" name="item">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Name</label>
+                <input id="name" name="name" type="text" class="form-control"  placeholder="jack harry">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Email</label>
+                <input id="email" name="email" type="password" class="form-control" placeholder="example@example.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress">Address</label>
+              <input id="address" name="address" type="text" class="form-control"  placeholder="1234 Main St">
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input id="city" name="city" type="text" class="form-control" >
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <input id="state" name="state" type="text" class="form-control" >
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input id="zipcode" name="zipcode" type="text" class="form-control" >
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputZip">Amount to be paid</label>
+              <input id="total" readonly="" name="total" type="text" class="form-control" >
+            </div>
+          </div>
+            
+            <button type="submit" class="btn btn-primary">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript">
+if(localStorage.getItem("cart")==null){
+  var cart = {};
+}
+else{
+  cart=JSON.parse(localStorage.getItem("cart"));
+}
+let total = 0;
+for (item in cart){
+  let name = cart[item][1];
+  let quantity = cart[item][0];
+  let price = cart[item][2];
+  total =total+cart[item][2];
+
+  itemString=`<li class="list-group-item"> <span class="">${quantity}</span> of ${name}<span class="badge badge-warning badge-pill">${price}</span></li>`
+
+  $('#item_list').append(itemString);
+}
+priceString =`<li class="list-group-item d-flex justify-content-between align-item-center"><b>Your Total</b>
+  ${total}</li>`
+
+$('#total').val(total);  
+$('#item_list').append(priceString);
+$('#item').val(JSON.stringify(cart));
+
+</script>
+</html>
