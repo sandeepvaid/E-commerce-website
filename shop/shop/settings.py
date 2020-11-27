@@ -27,7 +27,7 @@ SECRET_KEY = 'xk+id!yr7xk=vvmco*9^02v9jg8efb81+t0u5+w0w-_a-upw+r'
 #HERE WE MADE CHANGE IN DEBUG=FALSE AND ALLOWED HOST
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','e-commerceweb.herokuapp.com']
 
 
 # Application definition
